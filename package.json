@@ -1,0 +1,35 @@
+{
+  "name": "eslint-plugin-fsd-principles",
+  "version": "0.0.0",
+  "description": "Eslint configs and rules to ensure the principles of the FSD methodology",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "author": "Sanzhar Alimkhanov",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "@typescript-eslint/utils": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-doc-generator": "^1.4.3",
+    "eslint-plugin-eslint-plugin": "^5.0.8",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  },
+  "engines": {
+    "node": "^14.17.0 || ^16.0.0 || >= 18.0.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=7"
+  },
+  "license": "ISC"
+}

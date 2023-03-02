@@ -1,0 +1,51 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:eslint-plugin/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "prettier",
+    "import"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "export" },
+      { "blankLine": "always", "prev": "*", "next": "if" },
+      { "blankLine": "always", "prev": "if", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "switch" },
+      { "blankLine": "always", "prev": "switch", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          ["builtin"],
+          ["external"],
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}

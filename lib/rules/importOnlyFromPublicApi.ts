@@ -13,15 +13,16 @@ export default ESLintUtils.RuleCreator.withoutDocs<TOptions, TMessageIds>({
 
         for (const option of options) {
           if (
-            (value.startsWith(option) ||
-              value.startsWith(`../${option}`) ||
-              value.startsWith(`../../${option}`)) &&
-            !value.endsWith("/publicApi")
+            value.startsWith(option) ||
+            value.startsWith(`../${option}`) ||
+            value.startsWith(`../../${option}`)
           ) {
-            report({
-              node,
-              messageId: "importOnlyFromPublicApi",
-            });
+            if (!value.endsWith("/publicApi")) {
+              report({
+                node,
+                messageId: "importOnlyFromPublicApi",
+              });
+            }
           }
         }
       },

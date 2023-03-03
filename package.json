@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-fsd-principles",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Eslint configs and rules to ensure the principles of the FSD methodology",
   "keywords": [
     "eslint",

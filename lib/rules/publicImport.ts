@@ -4,6 +4,7 @@ import path from "path";
 import { ESLintUtils } from "@typescript-eslint/utils";
 
 import LAYERS from "../constants/LAYERS";
+import matchLayer from "../utils/matchLayer";
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -16,9 +17,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
-      const matchedContextLayer = getFilename().match(
-        /(?<=.+\/src\/)([^/]+)(?<=\/.+)/
-      );
+      const matchedContextLayer = matchLayer(getFilename());
 
       if (matchedContextLayer) {
         for (const layer of LAYERS) {

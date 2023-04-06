@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 import { ESLintUtils } from "@typescript-eslint/utils";
 
 import LAYERS from "../constants/LAYERS";
@@ -25,7 +28,15 @@ export default ESLintUtils.RuleCreator.withoutDocs({
               getFilename().indexOf(`${matchedContextLayer[0]}/`)
             );
 
-            console.log(pathUntilContextLayer);
+            console.log(
+              fs.existsSync(
+                path.resolve(
+                  pathUntilContextLayer,
+                  node.source.value,
+                  "index.ts"
+                )
+              )
+            );
             console.log(node.source.value);
           }
         }

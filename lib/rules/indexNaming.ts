@@ -3,12 +3,14 @@ import path from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
+import SEGMENTS from "../constants/SEGMENTS";
+
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     schema: [],
     messages: {
-      noSameLevelLayer: "Using same-level layer is restricted.",
+      onlySegmentIndex: "Allowed index naming only inside segment.",
     },
   },
   defaultOptions: [],
@@ -17,8 +19,15 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       for (const ext of ["ts", "js"]) {
         if (getFilename().endsWith(`index.${ext}`)) {
           for (const dir of fs.readdirSync(path.dirname(getFilename()))) {
-            console.log(dir);
+            if (SEGMENTS.includes(path.basename(dir))) {
+              return;
+            }
           }
+
+          report({
+            node,
+            messageId: "onlySegmentIndex",
+          });
         }
       }
     },

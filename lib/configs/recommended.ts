@@ -6,5 +6,6 @@ export default {
     "fsd-principles/relative-import": "error",
     "fsd-principles/public-import": "error",
     "fsd-principles/index-naming": "error",
+    "fsd-principles/public-export": "error",
   },
 };

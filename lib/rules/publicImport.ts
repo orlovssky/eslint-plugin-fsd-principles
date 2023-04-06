@@ -11,7 +11,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     schema: [],
     messages: {
-      allowedOnlyIndexImport: "Allowed import only from public index file.",
+      onlyIndexImport: "Allowed import only from public index file.",
     },
   },
   defaultOptions: [],
@@ -41,7 +41,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
 
             report({
               node,
-              messageId: "allowedOnlyIndexImport",
+              messageId: "onlyIndexImport",
             });
           }
         }

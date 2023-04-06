@@ -7,7 +7,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     schema: [],
     messages: {
-      noUpperLevelLayer: "Using upper-level layer is restricted",
+      noUpperLevelLayer: "Using upper-level layer is restricted.",
     },
   },
   defaultOptions: [],

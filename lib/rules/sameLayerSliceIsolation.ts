@@ -10,7 +10,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     schema: [],
     messages: {
-      noSameLevelLayer: "Using same-level layer is restricted",
+      noSameLevelLayer: "Using same-level layer is restricted.",
     },
   },
   defaultOptions: [],

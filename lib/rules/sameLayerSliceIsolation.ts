@@ -4,15 +4,19 @@ type TOptions = unknown[];
 type TMessageIds = "noRelativePublicApi";
 
 export default ESLintUtils.RuleCreator.withoutDocs<TOptions, TMessageIds>({
-  create({ report }) {
+  meta: {
+    type: "problem",
+    schema: [],
+    messages: {
+      noRelativePublicApi: "Import relative public is restricted",
+    },
+  },
+  defaultOptions: [],
+  create(context) {
     return {
       ImportDeclaration(node) {
-        const {
-          source: { value },
-        } = node;
-
-        if (value.startsWith("../") && value.endsWith("/publicApi")) {
-          report({
+        if (node.source.value.startsWith("../")) {
+          context.report({
             node,
             messageId: "noRelativePublicApi",
           });
@@ -20,12 +24,4 @@ export default ESLintUtils.RuleCreator.withoutDocs<TOptions, TMessageIds>({
       },
     };
   },
-  meta: {
-    type: "problem",
-    schema: [],
-    messages: {
-      noRelativePublicApi: "Import relative publicApi is restricted",
-    },
-  },
-  defaultOptions: [],
 });

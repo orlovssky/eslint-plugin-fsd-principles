@@ -10,11 +10,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     schema: [],
     messages: {
-      noSameLevelLayer: "Using same-level layer is restricted.",
+      allowedOnlyIndexImport: "Allowed import only from public index file.",
     },
   },
   defaultOptions: [],
-  create: ({ getFilename }) => ({
+  create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
       const matchedContextLayer = getFilename().match(
         /(?<=.+\/src\/)([^/]+)(?<=\/.+)/
@@ -28,16 +28,22 @@ export default ESLintUtils.RuleCreator.withoutDocs({
               getFilename().indexOf(`${matchedContextLayer[0]}/`)
             );
 
-            console.log(
-              fs.existsSync(
-                path.resolve(
-                  pathUntilContextLayer,
-                  node.source.value,
-                  "index.ts"
-                )
-              )
-            );
-            console.log(node.source.value);
+            for (const ext of ["ts", "js"]) {
+              const indexPath = path.resolve(
+                pathUntilContextLayer,
+                node.source.value,
+                `index.${ext}`
+              );
+
+              if (fs.existsSync(indexPath)) {
+                return;
+              }
+            }
+
+            report({
+              node,
+              messageId: "allowedOnlyIndexImport",
+            });
           }
         }
       }

@@ -16,7 +16,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
-      if (node.source.value.startsWith(".")) {
+      if (node.source.value.startsWith("..")) {
         const importPath = path.join(
           path.dirname(getFilename()),
           node.source.value

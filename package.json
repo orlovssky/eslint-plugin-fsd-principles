@@ -10,7 +10,7 @@
   "author": "Sanzhar Alimkhanov",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm version patch && rimraf dist && tsc && npm publish",
+    "build": "rimraf dist && tsc",
     "clean": "rimraf dist"
   },
   "devDependencies": {

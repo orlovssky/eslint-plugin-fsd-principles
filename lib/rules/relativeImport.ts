@@ -1,27 +1,33 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import LAYERS from "../constants/LAYERS";
+import getLowerLayers from "../utils/getLowerLayers";
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     schema: [],
     messages: {
-      noSameLevelLayer: "Using same-level layer is restricted.",
+      noRelativeImport:
+        "Using relative import for different layer is restricted.",
     },
   },
   defaultOptions: [],
-  create: ({ getFilename }) => ({
+  create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
-      for (const layer of LAYERS) {
-        if (node.source.value.startsWith(`${layer}/`)) {
-          const pathUntilSrc = getFilename().substring(
-            0,
-            getFilename().indexOf("src/")
-          );
+      if (node.source.value.startsWith("..")) {
+        const matchedContextLayer = getFilename().match(
+          /(?<=.+\/src\/)([^/]+)(?<=\/.+)/
+        );
 
-          console.log(pathUntilSrc);
-          console.log(node.source.value);
+        if (matchedContextLayer) {
+          for (const layer of getLowerLayers(matchedContextLayer[0])) {
+            if (node.source.value.includes(`${layer}/`)) {
+              report({
+                node,
+                messageId: "noRelativeImport",
+              });
+            }
+          }
         }
       }
     },

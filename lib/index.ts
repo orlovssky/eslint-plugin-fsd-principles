@@ -1,4 +1,5 @@
 import recommended from "./configs/recommended";
+import indexNaming from "./rules/indexNaming";
 import lowerLayerIsolation from "./rules/lowerLayerIsolation";
 import publicImport from "./rules/publicImport";
 import relativeImport from "./rules/relativeImport";
@@ -10,6 +11,7 @@ export = {
     "same-layer-slice-isolation": sameLayerSliceIsolation,
     "relative-import": relativeImport,
     "public-import": publicImport,
+    "index-naming": indexNaming,
   },
   configs: {
     recommended,

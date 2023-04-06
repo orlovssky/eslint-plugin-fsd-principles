@@ -36,7 +36,7 @@ yarn add eslint-plugin-import -D
 
 ## Usage
 
-Add `fsd-principles` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Add `fsd-principles` to the plugins section of your `.eslintrc` configuration file:
 
 ```json
 {

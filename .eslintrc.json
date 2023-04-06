@@ -28,7 +28,9 @@
       { "blankLine": "always", "prev": "if", "next": "*" },
       { "blankLine": "always", "prev": "*", "next": "switch" },
       { "blankLine": "always", "prev": "switch", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "return" }
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "do", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "while" }
     ],
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",

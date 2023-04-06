@@ -1,11 +1,13 @@
-import recommended from "./configs/recommended";
-import importOnlyFromPublicApi from "./rules/importOnlyFromPublicApi";
-import noRelativePublicApi from "./rules/noRelativePublicApi";
+import recommended from "configs/recommended";
+import layerIsolation from "rules/layerIsolation";
+import sameLayerSliceIsolation from "rules/sameLayerSliceIsolation";
 
 export = {
   rules: {
-    "import-only-from-public-api": importOnlyFromPublicApi,
-    "no-relative-public-api": noRelativePublicApi,
+    "layer-isolation": layerIsolation,
+    "same-layer-slice-isolation": sameLayerSliceIsolation,
   },
-  configs: { recommended },
+  configs: {
+    recommended,
+  },
 };

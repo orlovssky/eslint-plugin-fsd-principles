@@ -1,29 +1,34 @@
+import * as console from "console";
+
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { getUpperLayers } from "utils/layers";
 
-type TOptions = unknown[];
-type TMessageIds = "noRelativePublicApi";
+const layerInPathRegExp = /(?<=.+\/src\/)([^/]+)(?<=\/.+)/;
 
-export default ESLintUtils.RuleCreator.withoutDocs<TOptions, TMessageIds>({
+export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     schema: [],
     messages: {
-      noRelativePublicApi: "Import relative public is restricted",
+      noUpperLevelDirectory: "Using upper-level directory is restricted",
     },
   },
   defaultOptions: [],
-  create(context) {
-    const regex = /.+\/src\//;
-    const filename = context.getFilename();
-    const some = filename.replace(regex, "");
-    console.log(some);
+  create({ getFilename, report }) {
+    const matchedLayer = getFilename().match(layerInPathRegExp);
+
+    if (matchedLayer) {
+      const upperLayers = getUpperLayers(matchedLayer[0]);
+
+      console.log(upperLayers);
+    }
 
     return {
       ImportDeclaration(node) {
         if (node.source.value.startsWith("../")) {
-          context.report({
+          report({
             node,
-            messageId: "noRelativePublicApi",
+            messageId: "noUpperLevelDirectory",
           });
         }
       },

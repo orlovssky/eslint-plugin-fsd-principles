@@ -1,10 +1,10 @@
-import recommended from "configs/recommended";
-import layerIsolation from "rules/layerIsolation";
-import sameLayerSliceIsolation from "rules/sameLayerSliceIsolation";
+import recommended from "./configs/recommended";
+import lowerLayerIsolation from "./rules/lowerLayerIsolation";
+import sameLayerSliceIsolation from "./rules/sameLayerSliceIsolation";
 
 export = {
   rules: {
-    "layer-isolation": layerIsolation,
+    "lower-layer-isolation": lowerLayerIsolation,
     "same-layer-slice-isolation": sameLayerSliceIsolation,
   },
   configs: {

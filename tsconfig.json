@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "lib",
+    "target": "ESNext",
     "module": "commonjs",
     "lib": ["ESNext"],
     "outDir": "./dist",

@@ -3,7 +3,7 @@ import path from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import LAYERS from "../constants/LAYERS";
+import layers from "../static/layers";
 import matchLayer from "../utils/matchLayer";
 
 export default ESLintUtils.RuleCreator.withoutDocs({
@@ -20,7 +20,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       const matchedContextLayer = matchLayer(getFilename());
 
       if (matchedContextLayer) {
-        for (const layer of LAYERS) {
+        for (const layer of layers) {
           if (node.source.value.startsWith(`${layer}/`)) {
             const pathUntilContextLayer = getFilename().substring(
               0,

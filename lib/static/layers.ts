@@ -1,0 +1,11 @@
+import LAYERS from "../constants/LAYERS";
+
+export default [
+  LAYERS.APP,
+  LAYERS.PROCESSES,
+  LAYERS.PAGES,
+  LAYERS.WIDGETS,
+  LAYERS.FEATURES,
+  LAYERS.ENTITIES,
+  LAYERS.SHARED,
+];

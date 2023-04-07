@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import { dirname, basename } from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -10,7 +10,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     schema: [],
     messages: {
-      onlySegmentIndex: "Allowed index naming only inside segment.",
+      onlySegmentIndex: "Index-naming allowed only inside segment.",
     },
   },
   defaultOptions: [],
@@ -18,8 +18,8 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     Program: (node) => {
       for (const ext of ["ts", "js"]) {
         if (getFilename().endsWith(`index.${ext}`)) {
-          for (const dir of fs.readdirSync(path.dirname(getFilename()))) {
-            if (SEGMENTS.includes(path.basename(dir))) {
+          for (const dir of fs.readdirSync(dirname(getFilename()))) {
+            if (Object.values(SEGMENTS).includes(basename(dir) as SEGMENTS)) {
               return;
             }
           }

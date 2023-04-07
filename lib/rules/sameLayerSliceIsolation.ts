@@ -23,7 +23,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         );
 
         if (fs.existsSync(importPath)) {
-          for (const segment of SEGMENTS) {
+          for (const segment of Object.values(SEGMENTS)) {
             const indexOfSegment = importPath.indexOf(`/${segment}/`);
 
             if (

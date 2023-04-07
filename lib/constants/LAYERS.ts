@@ -1,9 +1,11 @@
-export default [
-  "app",
-  "processes",
-  "pages",
-  "widgets",
-  "features",
-  "entities",
-  "shared",
-];
+enum LAYERS {
+  APP = "app",
+  PROCESSES = "processes",
+  PAGES = "pages",
+  WIDGETS = "widgets",
+  FEATURES = "features",
+  ENTITIES = "entities",
+  SHARED = "shared",
+}
+
+export default LAYERS;

@@ -5,7 +5,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     schema: [],
     messages: {
-      onlyRelativeExportPath: "Allowed only relative export path.",
+      onlyRelativePathExport: "Allowed only relative path export.",
     },
   },
   defaultOptions: [],
@@ -14,7 +14,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       if (!node.source.value.startsWith("./")) {
         report({
           node,
-          messageId: "onlyRelativeExportPath",
+          messageId: "onlyRelativePathExport",
         });
       }
     },
@@ -22,7 +22,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       if (node?.source?.value && !node.source.value.startsWith("./")) {
         report({
           node,
-          messageId: "onlyRelativeExportPath",
+          messageId: "onlyRelativePathExport",
         });
       }
     },

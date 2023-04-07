@@ -1,5 +1,7 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
+import isIndex from "../utils/isIndex";
+
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
@@ -9,9 +11,9 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     },
   },
   defaultOptions: [],
-  create: ({ report }) => ({
+  create: ({ getFilename, report }) => ({
     ExportAllDeclaration: (node) => {
-      if (!node.source.value.startsWith("./")) {
+      if (isIndex(getFilename()) && !node.source.value.startsWith("./")) {
         report({
           node,
           messageId: "onlyRelativePathExport",
@@ -19,7 +21,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       }
     },
     ExportNamedDeclaration: (node) => {
-      if (node?.source?.value && !node.source.value.startsWith("./")) {
+      if (
+        isIndex(getFilename()) &&
+        node?.source?.value &&
+        !node.source.value.startsWith("./")
+      ) {
         report({
           node,
           messageId: "onlyRelativePathExport",

@@ -1,5 +1,5 @@
 import fs from "fs";
-import { dirname, basename } from "path";
+import { dirname, basename as getBasename } from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -17,9 +17,13 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create: ({ getFilename, report }) => ({
     Program: (node) => {
-      if (isIndex(getFilename())) {
-        for (const dir of fs.readdirSync(dirname(getFilename()))) {
-          if (Object.values(SEGMENTS).includes(basename(dir) as SEGMENTS)) {
+      const filename = getFilename();
+
+      if (isIndex(filename)) {
+        for (const dir of fs.readdirSync(dirname(filename))) {
+          const basename = getBasename(dir) as SEGMENTS;
+
+          if (Object.values(SEGMENTS).includes(basename)) {
             return;
           }
         }

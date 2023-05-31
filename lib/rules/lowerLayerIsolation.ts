@@ -21,7 +21,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         const contextLayer = matchedContextLayer[0] as LAYERS;
 
         for (const layer of getUpperLayers(contextLayer)) {
-          if (node.source.value.includes(`${layer}/`)) {
+          if (
+            node.source.value === layer ||
+            node.source.value.startsWith(`${layer}/`) ||
+            node.source.value.includes(`/${layer}/`)
+          ) {
             report({
               node,
               messageId: "noUpperLevelLayer",

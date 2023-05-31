@@ -3,7 +3,9 @@ import path from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import SEGMENTS from "../constants/SEGMENTS";
+import SEGMENT from "../constants/SEGMENT";
+
+const segments = Object.values(SEGMENT);
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -17,18 +19,16 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
       if (node.source.value.startsWith("..")) {
-        const importPath = path.join(
-          path.dirname(getFilename()),
-          node.source.value
-        );
+        const filename = getFilename();
+        const importPath = path.join(path.dirname(filename), node.source.value);
 
         if (fs.existsSync(importPath)) {
-          for (const segment of Object.values(SEGMENTS)) {
+          for (const segment of segments) {
             const indexOfSegment = importPath.indexOf(`/${segment}/`);
 
             if (
               indexOfSegment > -1 &&
-              !getFilename().startsWith(importPath.substring(0, indexOfSegment))
+              !filename.startsWith(importPath.substring(0, indexOfSegment))
             ) {
               report({
                 node,

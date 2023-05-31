@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import LAYERS from "../constants/LAYERS";
+import LAYER from "../constants/LAYER";
 import getLowerLayers from "../utils/getLowerLayers";
 import matchLayer from "../utils/matchLayer";
 
@@ -17,10 +17,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
       if (node.source.value.startsWith("..")) {
-        const matchedContextLayer = matchLayer(getFilename());
+        const filename = getFilename();
+        const matchedContextLayer = matchLayer(filename);
 
         if (matchedContextLayer) {
-          const contextLayer = matchedContextLayer[0] as LAYERS;
+          const contextLayer = matchedContextLayer[0] as LAYER;
 
           for (const layer of getLowerLayers(contextLayer)) {
             if (node.source.value.includes(`${layer}/`)) {

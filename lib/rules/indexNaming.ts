@@ -3,8 +3,8 @@ import { dirname, basename as getBasename } from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import SEGMENTS from "../constants/SEGMENTS";
-import isIndex from "../utils/isIndex";
+import SEGMENT from "../constants/SEGMENT";
+import isIndexFile from "../utils/isIndexFile";
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -19,11 +19,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     Program: (node) => {
       const filename = getFilename();
 
-      if (isIndex(filename)) {
+      if (isIndexFile(filename)) {
         for (const dir of fs.readdirSync(dirname(filename))) {
-          const basename = getBasename(dir) as SEGMENTS;
+          const basename = getBasename(dir) as SEGMENT;
 
-          if (Object.values(SEGMENTS).includes(basename)) {
+          if (Object.values(SEGMENT).includes(basename)) {
             return;
           }
         }

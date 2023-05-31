@@ -1,6 +1,5 @@
-enum LAYERS {
+enum LAYER {
   APP = "app",
-  PROCESSES = "processes",
   PAGES = "pages",
   WIDGETS = "widgets",
   FEATURES = "features",
@@ -8,4 +7,4 @@ enum LAYERS {
   SHARED = "shared",
 }
 
-export default LAYERS;
+export default LAYER;

@@ -3,8 +3,10 @@ import path from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-import layers from "../static/layers";
+import LAYER from "../constants/LAYER";
 import matchLayer from "../utils/matchLayer";
+
+const layers = Object.values(LAYER);
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -17,14 +19,15 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create: ({ getFilename, report }) => ({
     ImportDeclaration: (node) => {
-      const matchedContextLayer = matchLayer(getFilename());
+      const filename = getFilename();
+      const matchedContextLayer = matchLayer(filename);
 
       if (matchedContextLayer) {
         for (const layer of layers) {
           if (node.source.value.startsWith(`${layer}/`)) {
-            const pathUntilContextLayer = getFilename().substring(
+            const pathUntilContextLayer = filename.substring(
               0,
-              getFilename().indexOf(`${matchedContextLayer[0]}/`)
+              filename.indexOf(`${matchedContextLayer[0]}/`)
             );
 
             for (const ext of ["ts", "js"]) {

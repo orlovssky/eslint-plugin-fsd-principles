@@ -1,7 +1,8 @@
-import LAYERS from "../constants/LAYERS";
-import layers from "../static/layers";
+import LAYER from "../constants/LAYER";
 
-const getLowerLayers = (layer: LAYERS): LAYERS[] => {
+const layers = Object.values(LAYER);
+
+const getLowerLayers = (layer: LAYER): LAYER[] => {
   if (layers.includes(layer)) {
     return layers.slice(layers.indexOf(layer) + 1);
   } else {

@@ -1,5 +1,7 @@
+const firstDirAfterSrcRegExp = /(?<=.+\/src\/)([^/]+)(?<=\/.+)/;
+
 const matchLayer = (filename: string) => {
-  return filename.match(/(?<=.+\/src\/)([^/]+)(?<=\/.+)/);
+  return filename.match(firstDirAfterSrcRegExp);
 };
 
 export default matchLayer;

@@ -1,4 +1,4 @@
-const isIndex = (filename: string) => {
+const isIndexFile = (filename: string) => {
   for (const ext of ["ts", "js"]) {
     if (filename.endsWith(`index.${ext}`)) {
       return true;
@@ -8,4 +8,4 @@ const isIndex = (filename: string) => {
   return false;
 };
 
-export default isIndex;
+export default isIndexFile;

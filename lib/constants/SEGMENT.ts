@@ -1,4 +1,4 @@
-enum SEGMENTS {
+enum SEGMENT {
   UI = "ui",
   MODEL = "model",
   LIB = "lib",
@@ -7,4 +7,4 @@ enum SEGMENTS {
   ASSETS = "assets",
 }
 
-export default SEGMENTS;
+export default SEGMENT;

@@ -1,11 +1,11 @@
-const isIndexFile = (filename: string) => {
-  for (const ext of ["ts", "js"]) {
-    if (filename.endsWith(`index.${ext}`)) {
-      return true;
-    }
-  }
+import { basename as getBasename } from "path";
 
-  return false;
+const fileExtensions = ["js", "ts"];
+
+const isIndexFile = (filename: string) => {
+  return fileExtensions.some(
+    (fileExtension) => `index.${fileExtension}` === getBasename(filename)
+  );
 };
 
 export default isIndexFile;

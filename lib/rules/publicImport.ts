@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import path, { basename as getBasename } from "path";
 
 import { ESLintUtils } from "@typescript-eslint/utils";
 
@@ -7,6 +7,7 @@ import LAYER from "../constants/LAYER";
 import matchLayer from "../utils/matchLayer";
 
 const layers = Object.values(LAYER);
+const fileExtensions = ["js", "ts"];
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -30,14 +31,14 @@ export default ESLintUtils.RuleCreator.withoutDocs({
               filename.indexOf(`${matchedContextLayer[0]}/`)
             );
 
-            for (const ext of ["ts", "js"]) {
-              const indexPath = path.resolve(
+            for (const fileExtension of fileExtensions) {
+              const indexFilePath = path.resolve(
                 pathUntilContextLayer,
                 node.source.value,
-                `index.${ext}`
+                `index.${fileExtension}`
               );
 
-              if (fs.existsSync(indexPath)) {
+              if (fs.existsSync(indexFilePath)) {
                 return;
               }
             }

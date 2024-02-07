@@ -1,27 +1,24 @@
-import fs from "fs";
-import path, { basename as getBasename } from "path";
+import fs from 'fs'
+import path from 'path'
+import { ESLintUtils } from '@typescript-eslint/utils'
+import LAYER from 'constants/LAYER.ts'
+import fileExtensions from 'static/fileExtensions.js'
+import matchLayer from 'utils/matchLayer.ts'
 
-import { ESLintUtils } from "@typescript-eslint/utils";
-
-import LAYER from "../constants/LAYER";
-import matchLayer from "../utils/matchLayer";
-
-const layers = Object.values(LAYER);
-const fileExtensions = ["js", "ts"];
+const layers = Object.values(LAYER)
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   meta: {
-    type: "problem",
+    type: 'problem',
     schema: [],
     messages: {
-      onlyIndexImport: "Allowed import only from public index file.",
-    },
+      onlyIndexImport: 'Allowed import only from public index file.'
+    }
   },
   defaultOptions: [],
-  create: ({ getFilename, report }) => ({
+  create: ({ filename, report }) => ({
     ImportDeclaration: (node) => {
-      const filename = getFilename();
-      const matchedContextLayer = matchLayer(filename);
+      const matchedContextLayer = matchLayer(filename)
 
       if (matchedContextLayer) {
         for (const layer of layers) {
@@ -29,27 +26,27 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             const pathUntilContextLayer = filename.substring(
               0,
               filename.indexOf(`${matchedContextLayer[0]}/`)
-            );
+            )
 
             for (const fileExtension of fileExtensions) {
               const indexFilePath = path.resolve(
                 pathUntilContextLayer,
                 node.source.value,
                 `index.${fileExtension}`
-              );
+              )
 
               if (fs.existsSync(indexFilePath)) {
-                return;
+                return
               }
             }
 
             report({
               node,
-              messageId: "onlyIndexImport",
-            });
+              messageId: 'onlyIndexImport'
+            })
           }
         }
       }
-    },
-  }),
-});
+    }
+  })
+})
